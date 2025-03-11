@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Background Gradient Generator</title>
+    <link rel="stylesheet" href="./project-style.css" />
+  </head>
+  <body>
+    <section>
+      <div>
+        <button id="myButton1">#004d7a</button>
+        <button id="myButton2">#a8eb12</button>
+      </div>
+      <h2>Click below to copy your code</h2>
+      <div class="code">
+        background-image: linear-gradient(to right, #004d7a, #a8eb12);
+      </div>
+    </section>
+    <script>
+      let btn1 = document.querySelector("#myButton1");
+      let btn2 = document.querySelector("#myButton2");
+      let code = document.querySelector(".code");
+
+      const hexValues = () => {
+        let chars= "0123456789abcdef";
+        let colors = "#";
+        for(let i=0; i<6; i++) {
+        colors += chars[Math.floor(Math.random() * 16)];
+        }
+        return colors;
+      }
+
+      let rgb1 = hexValues();
+      let rgb2 = hexValues(); 
+      const updateBackground = () => {
+        if (rgb1 && rgb2) {
+          document.body.style.backgroundImage = `linear-gradient(to right, ${rgb1}, ${rgb2})`;
+          code.innerHTML = `background-image: linear-gradient(to right, ${rgb1}, ${rgb2});`;
+          btn1.innerHTML = rgb1;
+          btn2.innerHTML = rgb2;
+        }
+      }
+
+      const handleBtn = (btn) => {
+        if (btn === "btn1") {
+          rgb1 = hexValues();
+          console.log("Color 1: ", rgb1);
+        } else if (btn === "btn2") {
+          rgb2 = hexValues();
+          console.log("Color 2: ", rgb2);
+        } // The btn parameter decides which color (rgb1 or rgb2) should be updated.
+        updateBackground(); // Update the background every time a button is clicked
+      }
+
+      btn1.addEventListener("click", () => handleBtn("btn1"));
+      btn2.addEventListener("click", () => handleBtn("btn2"));
+      code.addEventListener("click", () => {
+        navigator.clipboard.writeText(code.textContent);
+        alert("Copied to clipboard!");
+      });
+    </script>
+  </body>
+</html>
+
+
+<!-- add a button to copy the code
+add direction button - Direction selection (Dropdown menu)
+add download as a image option
+Manual color input (Users can type hex codes)
+make it responsive in mobile device
+upload in github, netlify -->
